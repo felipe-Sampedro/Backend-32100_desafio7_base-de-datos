@@ -1,0 +1,23 @@
+<div class="border p-3">
+    <h3>Lista de Productos</h3>
+    <br>
+    
+    {{#if products.length}}
+    <div class="table-responsive">
+        <table class="table table-secondary">
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+            </tr>
+            {{#each products}}
+            <tr>
+                <td>{{this.nombre}}</td>
+                <td>${{this.precio}}</td>
+                <td><img width="50" src={{this.imagen}}></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    {{/if}}
+   
