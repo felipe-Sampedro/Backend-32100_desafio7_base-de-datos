@@ -16,7 +16,7 @@ const sqliteDB = new SQLClient(dbConfig.sqlite);
 const productos = new Products()
 
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
@@ -37,7 +37,7 @@ io.on('connection',(socket) =>{
     .then(console.log('table created'));
 
     mariaDB.getRecords("productos")
-        .then(data =>{socket.emit('products',data)})
+        .then((data) =>{socket.emit('products',data)})
     
 
     socket.on('newProduct', (newProduct) =>{
@@ -65,9 +65,14 @@ io.on('connection',(socket) =>{
 
     socket.on("newMessage", (data) =>{
         const user = users.find(user => user.id === socket.id);
-        const newMessage = formatMessage(socket.id, user.username, data);
-        messages.push(newMessage);
+        console.log('nombre de usuario' + user.username);
+        const newMessage = formatMessage(user.username,data);
+        sqliteDB.insertRecords('mensajes', newMessage)
         console.log(user.username);
         io.emit('chatMessage', newMessage);
     });
 });
+
+
+
+

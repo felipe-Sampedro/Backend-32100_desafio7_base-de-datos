@@ -28,7 +28,7 @@ module.exports = class SQLClient {
                 return this.knex.schema.createTable(tableName,(table) =>{
                     table.increments('id').notNullable().primary();
                     // table.string('id').notNullable().primary();
-                    table.string('userName',40).notNullable();
+                    table.string('username').notNullable();
                     table.string('time').notNullable();
                     table.string('text');
                 });
@@ -39,7 +39,7 @@ module.exports = class SQLClient {
 
     insertRecords(tableName,items){
         return this.knex(tableName).insert(items)
-        .then(console.log('product inserted succesfully'));
+        .then(console.log('item inserted succesfully'));
     }
 
 
@@ -54,18 +54,19 @@ module.exports = class SQLClient {
 
     deleteById(tableName, id){
         return this.knex.from(tableName).where({id}).del()
-        .then(console.log('the product was deleted'));
+        .then(console.log('the item was deleted'));
     }
 
     updateRecordById(tableName, id,payload){
         return this.knex.from(tableName).where({id}).update(payload)
-        .then(console.log('the product was updated'));
+        .then(console.log('the item was updated'));
     }
 
 
     getMessages(tableName){
-        const messages = this.knex(tableName).select('id','userName','time','text')
+        const messages = this.knex(tableName).select('id','username','time','text')
         return messages
+        .catch((err) => console.log("error en constructor mensajes", err));  
     }
 
 
