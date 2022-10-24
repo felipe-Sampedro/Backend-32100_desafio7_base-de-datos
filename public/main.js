@@ -1,3 +1,6 @@
+// const SQLClients = require('../db/clients/sql.clients')
+// const dbConfig = require('./db/config')
+// const mariaDB = new SQLClients(dbConfig.mariaDB)
 const socket = io()
 const prod = document.getElementById("productos");
 const prodForm = document.getElementById("productsForm")
